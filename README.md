@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Wyświetlenie playlisty i oznaczanie utworów jako ulubione
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Po przekazaniu do komponentu listy piosenek, które posiadają pola:
+
+```javascript
+{
+  name(h2);
+  author(p);
+  isFav;
+}
+```
+
+- Wyświetl je jako dzieci elementu div
+- Każdy element powinien mieć button, który sprawi, że wartość isFav zostanie ustawiona na true jeżeli wcześniej było false oraz analogicznie w drugą stroną.
+- Jeżeli element ma parametr isFav === true, spraw by tło buttona było koloru złotego “gold”, za sprawą klasy "btn--fav"
 
 ## Available Scripts
 

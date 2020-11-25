@@ -1,24 +1,45 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { songsList as sl } from './songs';
 import './App.css';
 
-function App() {
+function App({songsList = sl}) {
+  const [ displayedSongsList, updateSongsList ] = useState(songsList)
+
+  const toggleSongFavStatus = clickedIndex => {
+    const editedDisplayedSongsList = [...displayedSongsList];
+    editedDisplayedSongsList[clickedIndex].isFav = !editedDisplayedSongsList[clickedIndex].isFav;
+    updateSongsList(editedDisplayedSongsList)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="songs-list">
+      <div className="container">
+        <h1>Songs list</h1>
+
+        <div className="songs-wrapper">
+          {displayedSongsList.map((song, index) => {
+            return (
+              <div
+                key={`${song.title}-${index}`}
+                data-testid={`song-container-${song.title}-${index}`}
+                className="card"
+              >
+                <h2 data-testid={`song-title-${song.title}`}>{song.title}</h2>
+                <p data-testid={`song-author-${song.author}`}>{song.author}</p>
+
+                <button
+                  className={song.isFav ? 'btn btn-fav' : 'btn btn-secondary'}
+                  data-testid={`song-btn-${song.title}`}
+                  onClick={() => {toggleSongFavStatus(index)}}
+                >
+                  {song.isFav ? 'un-fav' : 'make fav'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 
